@@ -1,0 +1,52 @@
+ { ApplicationID: { $regex: new RegExp(req.params.searchKey, "i") } },
+        { sdate: { $regex: new RegExp(req.params.searchKey, "i") } },
+
+        { RegistrationNo: { $regex: new RegExp(req.params.searchKey, "i") } },
+        { MeritNo: { $regex: new RegExp(req.params.searchKey, "i") } },
+        { AcademicYear: { $regex: new RegExp(req.params.searchKey, "i") } },
+
+       
+        { sdateBirth: { $regex: new RegExp(req.params.searchKey, "i") } },
+
+        { ParentsIncome: { $regex: new RegExp(req.params.searchKey, "i") } },
+        { MeritMarkSSC: { $regex: new RegExp(req.params.searchKey, "i") } },
+        
+        { WhetherEBC: { $regex: new RegExp(req.params.searchKey, "i") } },
+       
+        { TotalFee: { $regex: new RegExp(req.params.searchKey, "i") } },
+        
+        { Declaredthis: { $regex: new RegExp(req.params.searchKey, "i") } },
+       
+
+
+        try {
+    const results = UserModel.find(
+      {
+        $or: [
+          { AllotmentLetter: spicificdoc },
+          { LEAVINGCERTIFICATE: spicificdoc },
+          { CASTCERTIFICATE: spicificdoc },
+          { NONCREMYLAYERCERTIFICATE: spicificdoc },
+          { GAPCERTIFICATE: spicificdoc },
+          { NATIONALITYCERTIFICATE: spicificdoc },
+          { DEFENCECERTIFICATE: spicificdoc },
+          { PHYSICALHANDICAPCERTIFICATE: spicificdoc },
+          { NCCCERTIFICATE: spicificdoc },
+          { DRAWINGCERTIFICATE: spicificdoc },
+          { INCOMECERTIFICATE: spicificdoc },
+        ],
+      },
+      {
+        ApplicationID,
+        NameofCandidate,
+        Branch,
+        RegistrationNo,
+        Category,
+        MobileNo,
+      }
+    );
+    res.json({ results });
+  } catch (error) {
+    console.error("Error during the search:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
